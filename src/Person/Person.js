@@ -1,6 +1,6 @@
 import React from 'react';
 
-const person = (props) => {
+const Person = (props) => {
     return (
         <div>
             <p>I am person ! my name is {props.name} and age is {props.age}</p>
@@ -10,4 +10,4 @@ const person = (props) => {
     )
 }
 
-export default person;
+export default Person;
