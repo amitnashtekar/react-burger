@@ -51,6 +51,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('classes', classes);
     const style = {
       backgroundColor: 'green',
       color: 'white',
