@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
 import Radium, {StyleRoot} from 'radium';
+import styled from 'styled-components';
 import './App.css';
 
+const StyledToggleBtn = styled.button`
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: ${props => props.alt ? 'black' : 'white'};
+    &:hover{
+      background-color: ${props => props.alt ? 'salmon' : 'lightgreen'}
+    };
+    `
 class App extends Component {
   state = {
     person: [
@@ -64,13 +72,13 @@ class App extends Component {
           </div>
         </StyleRoot>
       )
-      style.backgroundColor = 'red';
-      style.color = 'black';
-      style[':hover'] = {backgroundColor: 'salmon'};
+      // style.backgroundColor = 'red';
+      // style.color = 'black';
+      // style[':hover'] = {backgroundColor: 'salmon'};
     }
     return (
       <div className="App">
-      <button style = {style} onClick = {this.togglePersons}>state name</button>
+      <StyledToggleBtn alt = {this.state.showPerson} onClick = {this.togglePersons}>state name</StyledToggleBtn>
       <h1> Hi, I am react App!</h1>
       {persons}
 
@@ -79,4 +87,4 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;
