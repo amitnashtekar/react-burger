@@ -1,3 +1,14 @@
 .App {
   text-align: center;
 }
+
+.Button {
+  background-color: green;
+  color: white;
+
+}
+
+.Button:hover {
+  background-color: red;
+  color: black;
+}

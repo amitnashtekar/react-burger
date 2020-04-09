@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Person from './Person/Person';
 import Radium, {StyleRoot} from 'radium';
 import styled from 'styled-components';
-import './App.css';
+import classes from './App.css';
 
 const StyledToggleBtn = styled.button`
     background-color: ${props => props.alt ? 'red' : 'green'};
@@ -77,8 +77,8 @@ class App extends Component {
       // style[':hover'] = {backgroundColor: 'salmon'};
     }
     return (
-      <div className="App">
-      <StyledToggleBtn alt = {this.state.showPerson} onClick = {this.togglePersons}>state name</StyledToggleBtn>
+      <div className = {classes.App}>
+      <button className = {classes.Button} onClick = {this.togglePersons}>state name</button>
       <h1> Hi, I am react App!</h1>
       {persons}
 
