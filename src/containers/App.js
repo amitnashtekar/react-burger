@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
-import styled from 'styled-components';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import classes from './App.css';
 
-const StyledToggleBtn = styled.button`
-    background-color: ${props => props.alt ? 'red' : 'green'};
-    color: ${props => props.alt ? 'black' : 'white'};
-    &:hover{
-      background-color: ${props => props.alt ? 'salmon' : 'lightgreen'}
-    };
-    `
+
 class App extends Component {
   state = {
     person: [
@@ -19,6 +12,7 @@ class App extends Component {
       {id: 'vhj754', name: 'Aveer', age: '5'}
     ],
     otherData: 'I am a child ',
+    title: 'Hi, I am react App!',
     showPerson: false
   }
 
@@ -52,35 +46,24 @@ class App extends Component {
 
   render() {
     console.log('classes', classes);
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      ':hover':{backgroundColor: 'lightgreen'} 
-    }
+    
     let persons = null;
     if (this.state.showPerson) {
-      persons = (
-        <StyleRoot>
-          <div>
-            {
-              this.state.person.map((person, index) => {
-                return <Person name = {person.name} age = {person.age}
-                delete = {this.deletePersonHandlr.bind(this, index)}
-                change = {this.changeNameHandler.bind(this, person.id)}
-                key = {person.id} />
-              })
-            }
-          </div>
-        </StyleRoot>
+      persons = (        
+        <Persons persons = {this.state.person}
+                delete = {this.deletePersonHandlr}
+                change = {this.changeNameHandler}
+                 />
       )
-      // style.backgroundColor = 'red';
-      // style.color = 'black';
-      // style[':hover'] = {backgroundColor: 'salmon'};
+      
     }
     return (
       <div className = {classes.App}>
-      <button className = {classes.Button} onClick = {this.togglePersons}>state name</button>
-      <h1> Hi, I am react App!</h1>
+        <Cockpit ButtonCls = {classes.Button}
+        title = {this.state.title}
+        togglePersons = {this.togglePersons}
+         />
+     
       {persons}
 
       </div>

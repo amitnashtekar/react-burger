@@ -20,4 +20,4 @@ const Person = (props) => {
     )
 }
 
-export default Radium(Person);//we have used Radium HOC still CSS module is working.
+export default Person;
