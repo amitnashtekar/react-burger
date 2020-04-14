@@ -3,13 +3,21 @@ import BurgerIngredient from '../Burger/BurgerIngredient/BurgerIngredient';
 import BurgerCls from './Burger.css';
 
 const Burger = (props) => {
+    let transformedIngredients = Object.keys(props.ingredients);
+    transformedIngredients = transformedIngredients.map(igKey => {
+            return [...Array(props.ingredients[igKey])].map((_, i) => {
+                return <BurgerIngredient key={igKey + i} type={igKey} />
+            });
+        })
+                                    
+                                
+
 
     return (
         <div className = {BurgerCls.Burger}>
-            <BurgerIngredient type = {props.type || 'bread-top'} />
-            <BurgerIngredient type = {props.type || 'Cheese'} />
-            <BurgerIngredient type = {props.type || 'Salad'} />
-            <BurgerIngredient type = {props.type || 'bread-bottom'} />
+            <BurgerIngredient type = {'bread-top'} />
+            {transformedIngredients}
+            <BurgerIngredient type = {'bread-bottom'} />
         </div>
     )
 }
