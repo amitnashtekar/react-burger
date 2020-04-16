@@ -6,8 +6,11 @@ const BuildControl = (props) => {
         <div className = {BuildControlCls.BuildControl}>
             <div className = {BuildControlCls.Label}>{props.label}</div>
             <button className = {BuildControlCls.More}
-            onClick = {props.add}>more</button>
-            <button className = {BuildControlCls.Less}>less</button>
+            onClick = {props.add}
+            >more</button>
+            <button className = {BuildControlCls.Less}
+            onClick = {props.remove} 
+            disabled = {props.disable}>less</button>
         </div>      
     )
 }
