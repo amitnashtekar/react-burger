@@ -5,7 +5,7 @@ import Button from '../UI/Button/Button';
 const OrderSummary = (props) => {
 
     let IngredientsItems = Object.keys(props.ingredients).map(ingrKey => {
-        return <li> <p><span>{ingrKey}</span>:{props.ingredients[ingrKey]}</p> </li>
+        return <li key={ingrKey}> <p><span>{ingrKey}</span>:{props.ingredients[ingrKey]}</p> </li>
     })
 
     return (
