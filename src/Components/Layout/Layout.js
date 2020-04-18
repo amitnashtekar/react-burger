@@ -6,7 +6,7 @@ import LayoutCls from './Layout.css';
 
 class Layout extends Component  {
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     }
     hideSideDrawerHandler = () => {
         this.setState({showSideDrawer: false})
