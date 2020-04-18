@@ -1,11 +1,12 @@
 import React from 'react';
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
+import ToggleMenu from '../SideDrawer/ToggleMenu/ToggleMenu';
 import ToolbarCls from './Toolbar.css';
 
 const Toolbar = (props) => (
     <div className = {ToolbarCls.Toolbar}>        
-        <div>Menu</div>
+        <ToggleMenu toggleHandlr = {props.toggleHandlr} />
         <Logo />
         <nav className = {ToolbarCls.DesktopOnly}>
             <NavigationItems />
