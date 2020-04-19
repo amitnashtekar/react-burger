@@ -8,14 +8,18 @@ const WithErrorHandler = (WrappedCmpt, axios) => {
             showError: false,
             error: null
         }
-        componentDidMount () {
-            axios.interceptors.request.use(req => {
+        componentWillMount () {
+             this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({showError:false, error: null})
                 return req;
             });
-            axios.interceptors.response.use(res =>res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res =>res, error => {
                 this.setState({showError: true, error: error})
             });
+        }
+        componentWillUnmount () {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor)
         }
         closeModal = () => {
             this.setState({showError: false, error: null})
