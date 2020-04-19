@@ -11,6 +11,7 @@ const WithErrorHandler = (WrappedCmpt, axios) => {
         componentDidMount () {
             axios.interceptors.request.use(req => {
                 this.setState({showError:false, error: null})
+                return req;
             });
             axios.interceptors.response.use(res =>res, error => {
                 this.setState({showError: true, error: error})
