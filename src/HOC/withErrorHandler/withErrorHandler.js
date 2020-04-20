@@ -31,7 +31,7 @@ const WithErrorHandler = (WrappedCmpt, axios) => {
                     cancelOrder = {this.closeModal} >
                         {this.state.error.message}
                     </Modal>}
-                    <WrappedCmpt />
+                    <WrappedCmpt  {...this.props}/>
                 </Aux>                
             )
         }
