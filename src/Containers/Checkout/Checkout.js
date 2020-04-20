@@ -10,11 +10,19 @@ class Checkout extends Component {
             bacon: 2
         }
     }
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+        for (let param of query.entries()) {            
+                ingredients[param[0]] = +param[1];         
+        }
+        this.setState({ingredients: ingredients});
+    }
     cancelCheckout = () => {
         this.props.history.goBack();
     }
     continueCheckout = () => {
-        this.props.history.replace('/order-data')
+        this.props.history.replace('checkout/order-data')
     }
     render() {
         return (
