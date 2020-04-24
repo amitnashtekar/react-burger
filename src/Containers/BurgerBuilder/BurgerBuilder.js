@@ -10,17 +10,10 @@ import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 import {connect} from 'react-redux';
 
-const INGREDIENT_PRICES = {
-        salad: 0.4,
-        meat: 1.3,
-        cheese: 0.8,
-        bacon: 1.1
-}
+
 
 class BurgerBuilder extends Component {
-    state = {
-        ingredients: null,
-        totalPrice : 10,
+    state = {        
         purchesable: false,
         purchasing: false,
         loading: false
@@ -34,31 +27,7 @@ class BurgerBuilder extends Component {
             this.setState({ingredients: res.data});
         })
     }
-    addIngredientHadnler = (type) => {
-        console.log('type', type);
-        let updatedIngredients = {
-            ...this.props.ingredients
-        }
-        updatedIngredients[type] = updatedIngredients[type] + 1;
-        let updatedPrice = this.state.totalPrice;
-        updatedPrice = updatedPrice + INGREDIENT_PRICES[type];
-        this.setState({totalPrice : updatedPrice, ingredients : updatedIngredients});
-        this.setPurchesable(updatedIngredients);
-    }
-
-    removeIngredientHandler =(type) => {
-        let updatedIngredients = {
-            ...this.props.ingredients
-        }
-        if (updatedIngredients[type] <= 0) {
-            return;
-        }
-        updatedIngredients[type] = updatedIngredients[type] -1;
-        let updatedPrice = this.state.totalPrice;
-        updatedPrice = updatedPrice - INGREDIENT_PRICES[type];
-        this.setState({totalPrice : updatedPrice, ingredients : updatedIngredients});
-        this.setPurchesable(updatedIngredients);
-    }
+    
 
     setPurchesable = (ingredients) => {
         let sum = Object.keys(ingredients).map((ingrKey) => {
@@ -80,7 +49,7 @@ class BurgerBuilder extends Component {
         for (let i in this.props.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ingredients[i]));
         }
-        queryParams.push('price=' + this.state.totalPrice);
+        queryParams.push('price=' + this.props.totalPrice);
         const queryString = queryParams.join('&');
         this.props.history.push({
             pathname: '/checkout',
@@ -89,7 +58,7 @@ class BurgerBuilder extends Component {
         // this.setState({loading: true});
         // const order = {
         //     ingredients: this.props.ingredients,
-        //     price: this.state.totalPrice,
+        //     price: this.props.totalPrice,
         //     customer: {
         //         name: 'Amit Ashekar',
         //         address: {
@@ -128,7 +97,7 @@ class BurgerBuilder extends Component {
                 orderSummary = <OrderSummary cancelOrder = {this.cancelOrderHandler}
                 checkout = {this.checkoutHandler}
                  ingredients = {this.props.ingredients}
-                 totalPrice = {this.state.totalPrice} />;
+                 totalPrice = {this.props.totalPrice} />;
                  burger = (
                      <Aux>
                          <Burger ingredients = {this.props.ingredients} />
@@ -136,7 +105,7 @@ class BurgerBuilder extends Component {
                             addIngredient = {this.props.addIngredientHadnler}
                             removeIngredient = {this.props.removeIngredientHandler}
                             disableInfo= {disableInfo}
-                            totalPrice = {this.state.totalPrice}
+                            totalPrice = {this.props.totalPrice}
                             purchesable = {this.state.purchesable}
                             order = {this.orderHandler} />
                      </Aux>
@@ -158,7 +127,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients
+        ingredients: state.ingredients,
+        totalPrice: state.totalPrice
     }
 }
 
