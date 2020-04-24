@@ -14,7 +14,6 @@ import {connect} from 'react-redux';
 
 class BurgerBuilder extends Component {
     state = {        
-        purchesable: false,
         purchasing: false,
         loading: false
     }
@@ -36,7 +35,7 @@ class BurgerBuilder extends Component {
             return sum + el
         },0);
         
-        this.setState({purchesable: sum > 0})
+        return sum > 0;
     }
     orderHandler = () => {
         this.setState({purchasing: true})
@@ -106,7 +105,7 @@ class BurgerBuilder extends Component {
                             removeIngredient = {this.props.removeIngredientHandler}
                             disableInfo= {disableInfo}
                             totalPrice = {this.props.totalPrice}
-                            purchesable = {this.state.purchesable}
+                            purchesable = {this.setPurchesable(this.props.ingredients)}
                             order = {this.orderHandler} />
                      </Aux>
                  )
