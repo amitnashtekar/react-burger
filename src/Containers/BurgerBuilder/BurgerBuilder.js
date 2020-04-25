@@ -8,7 +8,7 @@ import Aux from '../../HOC/Auxilary';
 import withErrorHandler from '../../HOC/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import {
-    addIngredients, removeIngredients
+    addIngredients, removeIngredients, initIngredients
 } from '../../store/actions';
 import {connect} from 'react-redux';
 
@@ -21,12 +21,13 @@ class BurgerBuilder extends Component {
     }
     componentDidMount () {
         this.setState({loading: true});
-        axios.get('/ingredients.json')
-        .then(res => {
-            console.log(res);
-            this.setState({loading: false});
-            this.setState({ingredients: res.data});
-        })
+        this.props.initIngredients();
+        // axios.get('/ingredients.json')
+        // .then(res => {
+        //     console.log(res);
+        //     this.setState({loading: false});
+        //     this.setState({ingredients: res.data});
+        // })
     }
     
 
@@ -73,6 +74,7 @@ class BurgerBuilder extends Component {
         // });
     }
     render() {
+
             let disableInfo = {
                 ...this.props.ingredients
             }
@@ -81,6 +83,7 @@ class BurgerBuilder extends Component {
             }
             let orderSummary = null;
             let burger = null;
+
             if (this.state.loading) {
                 orderSummary = <Spinner />;
                 burger = <Spinner />;
@@ -120,14 +123,17 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice,
+        error: state.error
+
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addIngredientHadnler: (ingName) =>dispatch(addIngredients(ingName)) ,
-        removeIngredientHandler: (ingName) =>dispatch(removeIngredients(ingName)) 
+        removeIngredientHandler: (ingName) =>dispatch(removeIngredients(ingName)),
+        initIngredients:dispatch(initIngredients()) 
 
     }
 }
