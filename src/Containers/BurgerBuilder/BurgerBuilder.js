@@ -7,7 +7,9 @@ import Spinner from '../../Components/UI/Spinner/Spinner';
 import Aux from '../../HOC/Auxilary';
 import withErrorHandler from '../../HOC/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import {
+    addIngredients, removeIngredients
+} from '../../store/actions';
 import {connect} from 'react-redux';
 
 
@@ -124,8 +126,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addIngredientHadnler: (ingName) =>dispatch({type:actionTypes.ADD_INGREDIENTS,ingredientName:ingName}) ,
-        removeIngredientHandler: (ingName) =>dispatch({type:actionTypes.REMOVE_INGREDIENTS,ingredientName:ingName}) 
+        addIngredientHadnler: (ingName) =>dispatch(addIngredients(ingName)) ,
+        removeIngredientHandler: (ingName) =>dispatch(removeIngredients(ingName)) 
 
     }
 }
