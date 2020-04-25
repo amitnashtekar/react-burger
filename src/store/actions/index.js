@@ -6,3 +6,8 @@ export {
     failIngredients
 
 } from './burgerBuilder';
+
+export  {    
+    initPurchaseOrder
+
+} from './order.js';

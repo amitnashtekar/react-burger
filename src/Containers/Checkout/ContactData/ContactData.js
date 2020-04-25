@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import Button from '../../../Components/UI/Button/Button';
 import Spinner from '../../../Components/UI/Spinner/Spinner';
 import CDClaases from './ContactData.css';
-import axios from '../../../axios-orders';
+
 import {connect} from 'react-redux';
+import {
+    initPurchaseOrder
+} from '../../../store/actions';
+import axios from '../../../axios-orders';
+
 
 class ContactData extends Component {
     state = {        
@@ -16,7 +21,7 @@ class ContactData extends Component {
                 loading: false            
     }
     orderHandler = () => {
-        this.setState({loading: true});
+        //this.setState({loading: true});
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
@@ -31,16 +36,17 @@ class ContactData extends Component {
             },
             deliveryMethod: 'fast'
         }
-        axios.post('/order.json', order)
-        .then(response => {
-            console.log(response);
-            this.setState({loading: false});
-            this.props.history.push('/');
-        })
-        .catch(error => {
-            console.log(error);
-            this.setState({loading: false});
-        });
+        this.props.initPurchase(order);
+        // axios.post('/order.json', order)
+        // .then(response => {
+        //     console.log(response);
+        //     this.setState({loading: false});
+        //     this.props.history.push('/');
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        //     this.setState({loading: false});
+        // });
     }
     render() {
         let form = (
@@ -53,7 +59,7 @@ class ContactData extends Component {
                 clicked = {this.orderHandler}  >Order</Button>
             </React.Fragment>
         )
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />
         }
         return(
@@ -66,9 +72,18 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        price: state.totalPrice
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        initPurchase: (orderData) => dispatch(initPurchaseOrder(orderData))
+        
+    }
+    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);

@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import Order from '../../Components/Order/Order';
 import withErrorHandler from '../../HOC/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
+import {connect} from 'react-redux';
 
 class Orders extends Component {
     state = {
