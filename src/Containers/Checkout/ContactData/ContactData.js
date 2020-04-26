@@ -12,15 +12,71 @@ import axios from '../../../axios-orders';
 
 
 class ContactData extends Component {
-    state = {        
-                name: 'Amit Ashekar',
-                address: {
-                    street: 'test street 1',
-                    zipCode: '43256',                        
+    state = {
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'your name'
                 },
-                email: 'abc@test.com',
-                loading: false            
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'email'
+                },
+                value: ''
+            },             
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'country'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'your street'
+                },
+                value: ''
+            },
+            zipcode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'zip code'
+                },
+                value: ''
+            },
+            delivery: {
+                elementType: 'select',
+                elementConfig: {
+                    options:[
+                        {value: 'fastest', displayValue:'fastest'},
+                        {value: 'cheapest', displayValue:'cheapest'}
+                    ]
+                },
+                value: 'fastest'
+            }
+            
+
+        }
     }
+    // state = {        
+    //             name: 'Amit Ashekar',
+    //             address: {
+    //                 street: 'test street 1',
+    //                 zipCode: '43256',                        
+    //             },
+    //             email: 'abc@test.com',
+    //             loading: false            
+    // }
     orderHandler = () => {
         //this.setState({loading: true});
         const order = {
@@ -50,12 +106,28 @@ class ContactData extends Component {
         // });
     }
     render() {
+        const formElementArray = [];
+        for(let key in this.state.orderForm) {
+            formElementArray.push({
+                id: key,
+                config:this.state.orderForm[key]                 
+            })
+        }
+
         let form = (
             <React.Fragment>
-                <Input inputType="input" type = "text" name="name" placeholder="name" />
-                <Input inputType="input" type = "email" name="street" placeholder="street" />
-                <Input inputType="input" type = "street" name="name" placeholder="street" />
-                <Input inputType="input" type = "zipcode" name="zipcode" placeholder="zipcode" />
+                {
+                    formElementArray.map(formElement => {
+                    return <Input 
+                    key= {formElement.id}
+                    elementType={formElement.config.elementType}
+                    elementConfig= {formElement.config.elementConfig} 
+                    value = {formElement.config.value}
+                     />
+                })
+            }
+                
+              
                 <Button type = "Success"
                 clicked = {this.orderHandler}  >Order</Button>
             </React.Fragment>
