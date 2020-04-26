@@ -164,6 +164,7 @@ class ContactData extends Component {
                     elementConfig= {formElement.config.elementConfig} 
                     value = {formElement.config.value}
                     changed = {this.onChangeHandler.bind(this, formElement.id)}
+                    isValid = {formElement.config.valid}
                      />
                 })
             }
