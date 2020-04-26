@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Button from '../../../Components/UI/Button/Button';
 import Spinner from '../../../Components/UI/Spinner/Spinner';
+import Input from '../../../Components/UI/Input/Input';
 import CDClaases from './ContactData.css';
 
 import {connect} from 'react-redux';
@@ -51,10 +52,10 @@ class ContactData extends Component {
     render() {
         let form = (
             <React.Fragment>
-                <input type = "text" name="name" placeholder="name" />
-                <input type = "email" name="street" placeholder="street" />
-                <input type = "street" name="name" placeholder="street" />
-                <input type = "zipcode" name="zipcode" placeholder="zipcode" />
+                <Input inputType="input" type = "text" name="name" placeholder="name" />
+                <Input inputType="input" type = "email" name="street" placeholder="street" />
+                <Input inputType="input" type = "street" name="name" placeholder="street" />
+                <Input inputType="input" type = "zipcode" name="zipcode" placeholder="zipcode" />
                 <Button type = "Success"
                 clicked = {this.orderHandler}  >Order</Button>
             </React.Fragment>
