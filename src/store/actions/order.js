@@ -24,10 +24,10 @@ export const purchaseOrderFail = (error) => {
     }
 }
 
-export const initPurchaseOrder = (order) => {
+export const initPurchaseOrder = (order, token) => {
     return (dispatch) => {
         dispatch(purchaseOrderStart());        
-         axios.post('/order.json', order)
+         axios.post('/order.json?auth=' + token, order)
         .then(response => {
             console.log(response);
             dispatch(purchaseOrderSuccess(response.data.name,order));
