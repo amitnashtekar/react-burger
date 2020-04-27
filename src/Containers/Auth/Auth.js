@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
+import Spinner from '../../Components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import {connect} from 'react-redux';
 import {auth} from '../../store/actions';
@@ -68,6 +69,9 @@ class Auth extends Component {
         })
     }
     render () {
+        let form = <Spinner show = "true" />
+
+        
         const formElementArray = [];
         for(let key in this.state.controls) {
             formElementArray.push({
@@ -76,7 +80,10 @@ class Auth extends Component {
             })
         }
 
-        let form = (
+        
+        if (!this.props.loading) {
+            form = (
+            
             <React.Fragment>
                 {
                     formElementArray.map(formElement => {
@@ -98,7 +105,8 @@ class Auth extends Component {
                 clicked = {this.switchSignUpHandler}>
                 Switch to  {this.state.isSignUp?'SIGN IN' : 'SIGN UP'}</Button>
             </React.Fragment>
-        )
+            
+        )}
         return (
             <div className = {classes.Auth}>
                 <form onSubmit = {this.onSubmitHandler}>
@@ -111,10 +119,17 @@ class Auth extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         onAuth: (email, password, isSignUp) => dispatch(auth(email, password, isSignUp))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
