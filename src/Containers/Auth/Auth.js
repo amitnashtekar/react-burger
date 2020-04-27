@@ -109,6 +109,7 @@ class Auth extends Component {
         )}
         return (
             <div className = {classes.Auth}>
+                {this.props.error && <p>{this.props.error.message}</p>}
                 <form onSubmit = {this.onSubmitHandler}>
                     {form}
                 </form>
