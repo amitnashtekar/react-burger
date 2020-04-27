@@ -19,8 +19,8 @@ const SideDrawer = (props) => {
             cancelOrder = {props.hideSideDrawer} />
             <div className = {attachedClasses.join(' ')}>
                 <Logo height="11%" />
-                <NavigationItems>
-                    <NavigationItem>Burger Builder</NavigationItem>
+                <NavigationItems isAuth = {props.isAuth}>
+                    {/* <NavigationItem>Burger Builder</NavigationItem> */}
                 </NavigationItems>
 
             </div>
