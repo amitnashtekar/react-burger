@@ -5,6 +5,7 @@ import Spinner from '../../Components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import {connect} from 'react-redux';
 import {auth, logout} from '../../store/actions';
+import {Redirect} from 'react-router-dom';
 
 class Auth extends Component {
     state = {
@@ -107,8 +108,14 @@ class Auth extends Component {
             </React.Fragment>
             
         )}
+
+        let redirectToBurgrBuilder = null;
+        if (this.props.isAuth) {
+            redirectToBurgrBuilder = <Redirect to = "/" />
+        }
         return (
             <div className = {classes.Auth}>
+                {redirectToBurgrBuilder}
                 {this.props.error && <p>{this.props.error.message}</p>}
                 <form onSubmit = {this.onSubmitHandler}>
                     {form}
@@ -123,7 +130,8 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuth: state.auth.token !== null
     }
 }
 

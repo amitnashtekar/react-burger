@@ -41,6 +41,11 @@ class BurgerBuilder extends Component {
         return sum > 0;
     }
     orderHandler = () => {
+        if(this.props.isAuth) {
+           this.setState({purchasing: true}) 
+        } else {
+            this.props.history.push('/auth');
+        }
         this.setState({purchasing: true})
     }
     cancelOrderHandler = () => {
@@ -97,6 +102,7 @@ class BurgerBuilder extends Component {
                      <Aux>
                          <Burger ingredients = {this.props.ingredients} />
                             <BuildControls 
+                            isAuth = {this.props.isAuth}
                             addIngredient = {this.props.addIngredientHadnler}
                             removeIngredient = {this.props.removeIngredientHandler}
                             disableInfo= {disableInfo}
@@ -124,7 +130,8 @@ const mapStateToProps = state => {
     return {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuth: state.auth.token !== null
 
     }
 }
