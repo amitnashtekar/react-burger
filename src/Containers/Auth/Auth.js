@@ -4,7 +4,7 @@ import Button from '../../Components/UI/Button/Button';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import {connect} from 'react-redux';
-import {auth} from '../../store/actions';
+import {auth, logout} from '../../store/actions';
 
 class Auth extends Component {
     state = {
