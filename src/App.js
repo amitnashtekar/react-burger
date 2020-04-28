@@ -6,9 +6,16 @@ import Orders from './Containers/Orders/Orders';
 import Auth from './Containers/Auth/Auth';
 import Logout from './Containers/Auth/Logout/Logout';
 import {Route, Switch} from 'react-router-dom';
+import { authCheckState} from './store/actions';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 
 
 class App extends Component {
+
+  componentDidMount () {
+    this.props.authCheckState();
+  }
   render() {
     
     return (
@@ -28,4 +35,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    authCheckState: () => dispatch(authCheckState())
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(App));
