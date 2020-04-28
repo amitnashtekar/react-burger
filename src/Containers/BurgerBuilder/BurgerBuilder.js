@@ -8,7 +8,7 @@ import Aux from '../../HOC/Auxilary';
 import withErrorHandler from '../../HOC/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import {
-    addIngredients, removeIngredients, initIngredients
+    addIngredients, removeIngredients, initIngredients, setAuthRedirectPath
 } from '../../store/actions';
 import {connect} from 'react-redux';
 
@@ -44,6 +44,7 @@ class BurgerBuilder extends Component {
         if(this.props.isAuth) {
            this.setState({purchasing: true}) 
         } else {
+            this.props.setAuthRedirectPath('/checkout');
             this.props.history.push('/auth');
         }
         this.setState({purchasing: true})
@@ -140,7 +141,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addIngredientHadnler: (ingName) =>dispatch(addIngredients(ingName)) ,
         removeIngredientHandler: (ingName) =>dispatch(removeIngredients(ingName)),
-        initIngredients:dispatch(initIngredients()) 
+        initIngredients:dispatch(initIngredients()),
+        setAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)) 
 
     }
 }
