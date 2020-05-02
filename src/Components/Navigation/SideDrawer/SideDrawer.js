@@ -17,7 +17,7 @@ const SideDrawer = (props) => {
         <Aux>
             <BackDrop show= {props.showSideDawer} 
             cancelOrder = {props.hideSideDrawer} />
-            <div className = {attachedClasses.join(' ')}>
+            <div className = {attachedClasses.join(' ')} onClick = {props.hideSideDrawer}>
                 <Logo height="11%" />
                 <NavigationItems isAuth = {props.isAuth}>
                     {/* <NavigationItem>Burger Builder</NavigationItem> */}
