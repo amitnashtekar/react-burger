@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../src/Components/Layout/Layout';
 import BurgerBuilder from './Containers/BurgerBuilder/BurgerBuilder';
 
@@ -23,12 +23,14 @@ const asyncAuth = AsynComponent(() => {
 })
 
 
-class App extends Component {
+const App = (props) => {
 
-  componentDidMount () {
-    this.props.authCheckState();
-  }
-  render() {
+  useEffect(() => {
+    props.authCheckState();
+  }, [])
+
+  
+  
     
     return (
       <div>
@@ -44,7 +46,7 @@ class App extends Component {
         </Layout>
       </div>
     );
-  }
+  
 }
 
 const mapDispatchToProps = dispatch => {
